@@ -15,7 +15,10 @@ import UIKit
 
 extension PackageBannerView {
     @objc
-    func dropDownActionList() {
+    func dropDownActionList(gestureReconizer: UILongPressGestureRecognizer) {
+        if gestureReconizer.state != UIGestureRecognizer.State.began {
+            return
+        }
         let actions = obtainValidatedBannerActions()
         let dropDown = DropDown(anchorView: buttonAnchor,
                                 selectionAction: {
