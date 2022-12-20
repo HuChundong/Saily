@@ -57,6 +57,21 @@ extension SettingView {
                 self.dispatchValueUpdate()
             }
         }
+        
+        let enableQuickMode = SettingElement(iconSystemNamed: "square.and.arrow.up.on.square.fill",
+                                              text: NSLocalizedString("ENABLE_QUICK_MODE", comment: "Enable Quick Mode"),
+                                              dataType: .switcher) {
+            InterfaceBridge.enableQuickMode ? "YES" : "NO"
+        } withAction: { changeValueTo, _ in
+            if changeValueTo ?? false {
+                InterfaceBridge.enableQuickMode = true
+                self.dispatchValueUpdate()
+            } else {
+                InterfaceBridge.enableQuickMode = false
+                self.dispatchValueUpdate()
+            }
+        }
+        
         #if DEBUG
             let crashApp = SettingElement(iconSystemNamed: "xmark.octagon.fill",
                                           text: "EXEC_BAD_ACCESS",
@@ -116,6 +131,7 @@ extension SettingView {
         }
         addSubview(backgroundView)
         addSubview(enableShareSheet)
+        addSubview(enableQuickMode)
         #if DEBUG
             addSubview(crashApp)
         #endif
@@ -130,6 +146,13 @@ extension SettingView {
             x.height.equalTo(28)
         }
         anchor = enableShareSheet
+        enableQuickMode.snp.makeConstraints { x in
+            x.left.equalTo(safeAnchor.snp.left).offset(8)
+            x.right.equalTo(safeAnchor.snp.right).offset(-8)
+            x.top.equalTo(anchor.snp.bottom).offset(18)
+            x.height.equalTo(28)
+        }
+        anchor = enableQuickMode
         #if DEBUG
             crashApp.snp.makeConstraints { x in
                 x.left.equalTo(safeAnchor.snp.left).offset(8)

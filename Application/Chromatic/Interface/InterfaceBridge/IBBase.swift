@@ -26,6 +26,9 @@ enum InterfaceBridge {
 
     @PropertiesWrapper(key: "enableShareSheet", defaultValue: false)
     public static var enableShareSheet: Bool
+    
+    @PropertiesWrapper(key: "enableQuickMode", defaultValue: true)
+    public static var enableQuickMode: Bool
 
     public static func removeRecoveryFlag(with reason: String, userRequested: Bool) {
         if !applicationShouldEnterRecovery || userRequested {

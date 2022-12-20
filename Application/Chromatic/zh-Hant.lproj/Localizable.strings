@@ -175,6 +175,9 @@
 /* Enable random device info will disable commercial operations */
 "ENABLE_RANDOM_DEVICE_INFO_WILL_DISABLE_COMMERCIAL_OPERATIONS" = "啟用隨機設備資訊將禁用商業操作";
 
+/* Enable Quick Mode */
+"ENABLE_QUICK_MODE" = "啟用快速模式";
+
 /* Enable Share Sheet */
 "ENABLE_SHARE_SHEET" = "啟用分享表單";
 

@@ -178,6 +178,9 @@
 /* Enable Share Sheet */
 "ENABLE_SHARE_SHEET" = "Enable Share Sheet";
 
+/* Enable Quick Mode */
+"ENABLE_QUICK_MODE" = "Enable Quick Mode";
+
 /* Enable share sheet may crash the app */
 "ENABLE_SHARE_SHEET_MAY_CRASH_THE_APP" = "Enable share sheet may crash the app";
 
