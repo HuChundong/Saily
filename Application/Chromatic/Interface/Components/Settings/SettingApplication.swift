@@ -67,26 +67,22 @@ extension SettingView {
         let doUicache = SettingElement(iconSystemNamed: "square.grid.2x2",
                                        text: NSLocalizedString("REBUILD_ICONS", comment: "Rebuild Icons"),
                                        dataType: .submenuWithAction,
-                                       initData: nil) { _, anchor in
-            self.dropDownConfirm(anchor: anchor,
-                                 text: NSLocalizedString("REBUILD_ICONS", comment: "Rebuild Icons"))
-            { [weak self] in
-                let alert = UIAlertController(title: "⚠️",
-                                              message: NSLocalizedString("RELOAD_ICON_CACHE_TASKES_TIME", comment: "Reloading home screen icons will take some time"),
-                                              preferredStyle: .alert)
-                self?.parentViewController?.present(alert, animated: true) {
-                    DispatchQueue.global().async {
-                        AuxiliaryExecuteWrapper.rootspawn(command: AuxiliaryExecuteWrapper.uicache,
-                                                          args: ["--all"],
-                                                          timeout: 120,
-                                                          output: { _ in })
-                        AuxiliaryExecuteWrapper.rootspawn(command: "exec-uicache",
-                                                          args: [],
-                                                          timeout: 120,
-                                                          output: { _ in })
-                        DispatchQueue.main.async {
-                            alert.dismiss(animated: true, completion: nil)
-                        }
+                                       initData: nil) { _, _ in
+            let alert = UIAlertController(title: "⚠️",
+                                          message: NSLocalizedString("RELOAD_ICON_CACHE_TASKES_TIME", comment: "Reloading home screen icons will take some time"),
+                                          preferredStyle: .alert)
+            self.parentViewController?.present(alert, animated: true) {
+                DispatchQueue.global().async {
+                    AuxiliaryExecuteWrapper.rootspawn(command: AuxiliaryExecuteWrapper.uicache,
+                                                      args: ["--all"],
+                                                      timeout: 120,
+                                                      output: { _ in })
+                    AuxiliaryExecuteWrapper.rootspawn(command: "exec-uicache",
+                                                      args: [],
+                                                      timeout: 120,
+                                                      output: { _ in })
+                    DispatchQueue.main.async {
+                        alert.dismiss(animated: true, completion: nil)
                     }
                 }
             }
@@ -94,28 +90,20 @@ extension SettingView {
         let doRespring = SettingElement(iconSystemNamed: "rays",
                                         text: NSLocalizedString("RELOAD_DESKTOP", comment: "Reload Desktop"),
                                         dataType: .submenuWithAction,
-                                        initData: nil) { _, anchor in
-            self.dropDownConfirm(anchor: anchor,
-                                 text: NSLocalizedString("RELOAD_DESKTOP", comment: "Reload Desktop"))
-            {
-                UIApplication.prepareForExitAndSuspend()
-                sleep(1)
-                AuxiliaryExecuteWrapper.reloadSpringboard()
-            }
+                                        initData: nil) { _, _ in
+            UIApplication.prepareForExitAndSuspend()
+            sleep(1)
+            AuxiliaryExecuteWrapper.reloadSpringboard()
         }
         let safemode = SettingElement(iconSystemNamed: "shield",
                                       text: NSLocalizedString("ENTER_SAFE_MODE", comment: "Enter Safe Mode"),
                                       dataType: .submenuWithAction,
-                                      initData: nil) { _, anchor in
-            self.dropDownConfirm(anchor: anchor,
-                                 text: NSLocalizedString("ENTER_SAFE_MODE", comment: "Enter Safe Mode"))
-            {
-                UIApplication.prepareForExitAndSuspend()
-                sleep(1)
-                AuxiliaryExecuteWrapper.rootspawn(command: AuxiliaryExecuteWrapper.killall,
-                                                  args: ["-SEGV", "SpringBoard"],
-                                                  timeout: 1) { _ in
-                }
+                                      initData: nil) { _, _ in
+            UIApplication.prepareForExitAndSuspend()
+            sleep(1)
+            AuxiliaryExecuteWrapper.rootspawn(command: AuxiliaryExecuteWrapper.killall,
+                                              args: ["-SEGV", "SpringBoard"],
+                                              timeout: 1) { _ in
             }
         }
         let sourceCode = SettingElement(iconSystemNamed: "chevron.left.slash.chevron.right",

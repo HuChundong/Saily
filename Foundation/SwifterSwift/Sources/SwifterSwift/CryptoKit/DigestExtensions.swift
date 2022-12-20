@@ -10,7 +10,7 @@
         /// SwifterSwift: Hexadecimal value string (read-only, Complexity: O(N), _N_ being the amount of bytes.)
         var hexString: String {
             var result = ""
-            for byte in self {
+            for byte in self.makeIterator() {
                 result += String(format: "%02X", byte)
             }
             return result

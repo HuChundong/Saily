@@ -120,6 +120,7 @@ extension InterfaceBridge {
         }
 
         func confirmOperations() {
+            // 这里的试运行要给他干掉，并且直接默认调用
             if TaskProcessor.shared.inProcessingQueue {
                 let alert = UIAlertController(title: "⚠️",
                                               message: NSLocalizedString("TASK_PROCESSOR_BUSY_PROCESSING_ANOTHER_JOB", comment: "Task processor is busy processing another job"),

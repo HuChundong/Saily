@@ -28,6 +28,12 @@ extension PackageBannerView {
                                 cancelAction: nil)
         dropDown.show(onTopOf: window)
     }
+    
+    @objc
+    func dropDownActionListQuick() {
+        let actions = obtainValidatedBannerActions()
+        self.dealWithAction(actions: actions, index: 0, item: "quick")
+    }
 
     func dealWithAction(actions: [PackageMenuAction.MenuAction], index: Int, item _: String) {
         guard index >= 0, index < actions.count else {

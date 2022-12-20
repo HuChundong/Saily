@@ -89,6 +89,7 @@ class HDTaskController: UIViewController, UITableViewDelegate, UITableViewDataSo
         confirmButton.snp.makeConstraints { x in
             x.edges.equalTo(confirmBox)
         }
+        // 这个就是任务队列里面的点击动作了
         confirmButton.addTarget(self, action: #selector(confirmQueueActions(sender:)), for: .touchUpInside)
 
         let clearButton = UIButton()

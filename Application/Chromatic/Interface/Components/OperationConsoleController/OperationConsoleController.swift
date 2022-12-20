@@ -155,7 +155,7 @@ class OperationConsoleController: UIViewController {
 
     static let allActions: [ExitAction] = [
         .init(text: NSLocalizedString("RELOAD_ICON_CACHE", comment: "Reload Icon Cache"),
-              confirmationRequired: true,
+              confirmationRequired: false,
               action: { controller in
                   let alert = UIAlertController(title: "⚠️",
                                                 message: NSLocalizedString("RELOAD_ICON_CACHE_TASKES_TIME", comment: "Reloading home screen icons will take some time"),
@@ -177,7 +177,7 @@ class OperationConsoleController: UIViewController {
                   }
               }),
         .init(text: NSLocalizedString("RELOAD_HOMESCREEN", comment: "Reload Home Screen"),
-              confirmationRequired: true,
+              confirmationRequired: false,
               action: { _ in
                   AuxiliaryExecuteWrapper.reloadSpringboard()
               }),
