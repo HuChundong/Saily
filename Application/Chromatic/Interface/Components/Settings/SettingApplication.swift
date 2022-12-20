@@ -58,7 +58,7 @@ extension SettingView {
             }
         }
         
-        let enableQuickMode = SettingElement(iconSystemNamed: "square.and.arrow.up.on.square.fill",
+        let enableQuickMode = SettingElement(iconSystemNamed: "hare",
                                              text: NSLocalizedString("ENABLE_QUICK_MODE", comment: "Enable Quick Mode"),
                                              dataType: .switcher) {
             InterfaceBridge.enableQuickMode ? "YES" : "NO"
