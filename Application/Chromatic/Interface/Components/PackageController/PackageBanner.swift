@@ -71,9 +71,13 @@ class PackageBannerView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.gray, for: .highlighted)
         // 安装增加长按菜单，短按就直接安装
-        button.addTarget(self, action: #selector(dropDownActionListQuick), for: .touchUpInside)
-        let mLongClick = UILongPressGestureRecognizer(target: self, action: #selector(dropDownActionList)) // 事件对象
-        button.addGestureRecognizer(mLongClick)
+        if(InterfaceBridge.enableQuickMode){
+            button.addTarget(self, action: #selector(dropDownActionListQuick), for: .touchUpInside)
+            let mLongClick = UILongPressGestureRecognizer(target: self, action: #selector(dropDownActionList)) // 事件对象
+            button.addGestureRecognizer(mLongClick)
+        }else{
+            button.addTarget(self, action: #selector(dropDownActionList), for: .touchUpInside)
+        }
         button.snp.makeConstraints { x in
             x.centerY.equalToSuperview()
             x.right.equalToSuperview().offset(-20)
