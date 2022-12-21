@@ -12,29 +12,48 @@ import UIKit
 
 class PackageBannerView: UIView {
     let package: Package
-
+    
     var icon = UIImageView()
     var name = UILabel()
     var version = UILabel()
-
+    
     let padding = 15
-
+    
     var button = UIButton()
     let buttonBackground = UIView()
     let buttonAnchor = UIView()
-
+    
     init(package: Package) {
-        self.package = package
-
+        if(package.identity == "" ){
+            self.package = package
+        }else{
+            if let installInfo = PackageCenter
+                .default
+                .obtainPackageInstallationInfo(with: package.identity){
+                let updatePackages = PackageCenter
+                    .default
+                    .obtainUpdateForPackage(with: installInfo.identity,
+                                            version: installInfo.version)
+                if updatePackages.count > 0
+                {
+                    self.package = updatePackages[0]
+                }else{
+                    self.package = package
+                }
+            }else{
+                self.package = package
+            }
+        }
+        
         super.init(frame: CGRect())
-
+        
         addSubview(icon)
         addSubview(name)
         addSubview(version)
         addSubview(buttonBackground)
         addSubview(button)
         addSubview(buttonAnchor)
-
+        
         icon.clipsToBounds = true
         icon.layer.cornerRadius = 8
         icon.contentMode = .scaleAspectFill
@@ -46,7 +65,7 @@ class PackageBannerView: UIView {
         name.adjustsFontSizeToFitWidth = true
         version.textColor = UIColor(named: "TEXT_SUBTITLE")
         version.font = .boldSystemFont(ofSize: 14)
-
+        
         icon.snp.makeConstraints { x in
             x.centerY.equalToSuperview()
             x.left.equalToSuperview().offset(padding)
@@ -63,7 +82,7 @@ class PackageBannerView: UIView {
             x.top.equalTo(icon.snp.centerY).offset(4)
             x.right.equalTo(button.snp.left).offset(-8)
         }
-
+        
         button.titleLabel?.numberOfLines = 1
         button.titleLabel?.minimumScaleFactor = 0.2
         button.titleLabel?.lineBreakMode = .byClipping
@@ -98,29 +117,29 @@ class PackageBannerView: UIView {
             x.height.equalTo(2)
             x.width.equalTo(250)
         }
-
+        
         updateValues()
-
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateValues),
                                                name: .TaskContainerChanged,
                                                object: nil)
     }
-
+    
     @available(*, unavailable)
     required init?(coder _: NSCoder) { fatalError() }
-
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-
+    
     @objc
     func updateValues() {
         name.text = PackageCenter.default.name(of: package)
         version.text = package.latestVersion ?? "0.0.0.???"
         icon.image = UIImage(named: "PackageDefaultIcon")
         button.setTitle(grabButtonString(), for: .normal)
-
+        
         // now we need to update button size from localized string
         var width = button.intrinsicContentSize.width
         if width < 50 { width = 50 }
@@ -136,7 +155,7 @@ class PackageBannerView: UIView {
             }
             self.button.layoutIfNeeded()
         } completion: { _ in }
-
+        
         if let iconUrl = PackageCenter.default.avatarUrl(with: package) {
             SDWebImageManager
                 .shared
@@ -149,7 +168,7 @@ class PackageBannerView: UIView {
                 }
         }
     }
-
+    
     func grabButtonString() -> String {
         if TaskManager.shared.isQueueContains(package: package.identity) {
             return NSLocalizedString("QUEUED", comment: "Queued").uppercased()
@@ -171,7 +190,7 @@ class PackageBannerView: UIView {
     }
     
     func getButtonStringFromActions() -> String{
-       let actions = PackageMenuAction
+        let actions = PackageMenuAction
             .allMenuActions
             .filter { $0.elegantForPerform(package) }
         let action = actions[0]
