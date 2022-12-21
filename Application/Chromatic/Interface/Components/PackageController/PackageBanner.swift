@@ -166,6 +166,15 @@ class PackageBannerView: UIView {
             }
             return NSLocalizedString("INSTALL", comment: "Install").uppercased()
         }
-        return NSLocalizedString("OPTION", comment: "Option").uppercased()
+        // 如果是已经安装的，需要看一下action里面的第一个是什么，可能是删除，也可能是更新
+        return getButtonStringFromActions() //  NSLocalizedString("OPTION", comment: "Option").uppercased()
+    }
+    
+    func getButtonStringFromActions() -> String{
+       let actions = PackageMenuAction
+            .allMenuActions
+            .filter { $0.elegantForPerform(package) }
+        let action = actions[0]
+        return action.descriptor.describe()
     }
 }
