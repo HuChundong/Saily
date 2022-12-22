@@ -52,7 +52,7 @@ extension SettingView {
         let deviceInfo = SettingElement(iconSystemNamed: "iphone",
                                         text: DeviceInfo.current.machine,
                                         dataType: .none, initData: nil) { _, _ in }
-        let systemVersion = SettingElement(iconSystemNamed: "apple.logo",
+        let systemVersion = SettingElement(iconSystemNamed: "gear",
                                            text: UIDevice.current.systemName + " - " + UIDevice.current.systemVersion,
                                            dataType: .none, initData: nil) { _, _ in }
 
