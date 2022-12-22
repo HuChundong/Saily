@@ -88,6 +88,10 @@ public struct Package: Codable, Hashable, Identifiable {
         while builder.hasSuffix("/") { builder.removeLast() }
         if !target.hasPrefix("/") { builder += "/" }
         builder += target
+        
+        if let percentEncode = builder.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) {
+        builder = percentEncode
+        }
         return URL(string: builder) ?? badUrl
         // ? isn't part of a path, will resolve to %3F
     }
