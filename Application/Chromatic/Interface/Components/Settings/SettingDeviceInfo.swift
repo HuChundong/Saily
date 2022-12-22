@@ -49,19 +49,19 @@ extension SettingView {
         groupEffect0.backgroundColor = UIColor(named: "CARD_BACKGROUND")
         groupEffect0.layer.cornerRadius = 12
 //        groupEffect0.dropShadow()
-        let deviceInfo = SettingElement(iconSystemNamed: "info.circle",
+        let deviceInfo = SettingElement(iconSystemNamed: "iphone",
                                         text: DeviceInfo.current.machine,
                                         dataType: .none, initData: nil) { _, _ in }
-        let systemVersion = SettingElement(iconSystemNamed: "",
+        let systemVersion = SettingElement(iconSystemNamed: "apple.logo",
                                            text: UIDevice.current.systemName + " - " + UIDevice.current.systemVersion,
                                            dataType: .none, initData: nil) { _, _ in }
 
-        let udid = SettingElement(iconSystemNamed: "",
+        let udid = SettingElement(iconSystemNamed: "person.text.rectangle",
                                   text: DeviceInfo.current.realDeviceIdentity.uppercased(),
                                   dataType: .none, initData: nil, withAction: nil)
         udid.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(copyUDIDAction(sender:))))
         udid.label.font = .monospacedSystemFont(ofSize: 16, weight: .semibold)
-        let enableRandomDeviceInfo = SettingElement(iconSystemNamed: "eye.slash",
+        let enableRandomDeviceInfo = SettingElement(iconSystemNamed: "network.badge.shield.half.filled",
                                                     text: NSLocalizedString("RANDOM_INDO", comment: "Random Info"),
                                                     dataType: .switcher,
                                                     initData: {
@@ -87,7 +87,7 @@ extension SettingView {
                 self.dispatchValueUpdate()
             }
         }
-        let userAgentControl = SettingElement(iconSystemNamed: "grid.circle.fill",
+        let userAgentControl = SettingElement(iconSystemNamed: "safari",
                                               text: NSLocalizedString("USER_AGENT", comment: "User Agent"),
                                               dataType: .submenuWithAction) {
             var ret = InterfaceBridge.mainUserAgent
