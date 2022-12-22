@@ -569,7 +569,7 @@
 "WELCOME_CARD_DESC" = "爱慕星云的人穿梭在不为人知的天方夜谭";
 
 /* Welcome to Saily! */
-"WELCOME_CARD_TITLE" = "欢迎使用 Saily!(非官方版本)";
+"WELCOME_CARD_TITLE" = "欢迎使用 Saily!";
 
 /* Worldwide Search */
 "WORLDWIDE_SEARCH" = "全局搜索";
