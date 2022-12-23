@@ -179,8 +179,11 @@ class OperationConsoleController: UIViewController {
               }),
         .init(text: NSLocalizedString("RELOAD_HOMESCREEN", comment: "Reload Home Screen"),
               confirmationRequired: !InterfaceBridge.enableQuickMode,
-              action: { _ in
-                  AuxiliaryExecuteWrapper.reloadSpringboard()
+              action: { controller in
+                  // does here need animation?
+                  controller.dismiss(animated: true, completion: {
+                      AuxiliaryExecuteWrapper.reloadSpringboard()
+               })
               }),
         .init(text: NSLocalizedString("CLOSE", comment: "Close"),
               confirmationRequired: false,
