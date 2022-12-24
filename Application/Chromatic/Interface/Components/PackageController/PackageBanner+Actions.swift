@@ -29,6 +29,9 @@ extension PackageBannerView {
                                 bottomOffset: nil,
                                 cellConfiguration: nil,
                                 cancelAction: nil)
+        let gen = UIImpactFeedbackGenerator.init(style: .medium);
+                gen.prepare();
+                gen.impactOccurred()
         dropDown.show(onTopOf: window)
     }
     
